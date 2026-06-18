@@ -156,9 +156,6 @@ cython_debug/
 #  Often practical to leave out, but can be checked in if all team members use PyCharm
 .idea/
 
-# VS Code
-.vscode/
-
 # FastAPI / SQLAlchemy / Alembic
 alembic/versions/*.pyc
 *.sqlite3
