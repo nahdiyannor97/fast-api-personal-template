@@ -12,6 +12,7 @@ from app.core._logging import logger
 from app.core.config import environment, settings
 from app.core.limiter import limiter
 from app.db.engine import engine
+from app.api.endpoints.v1.health_check import router as health_check_router
 
 
 @asynccontextmanager
@@ -72,7 +73,7 @@ def configure_documentation(app: FastAPI) -> None:
                 openapi_url=app.openapi_url,
                 title=f"{app.title} - ReDoc",
                 redoc_js_url="/static/redoc.standalone.js",
-                redoc_favicon_url="/static/favicon.png"
+                redoc_favicon_url="/static/favicon.png",
             )
 
 
@@ -88,7 +89,7 @@ def configure_routers(app: FastAPI) -> None:
     """
     Include all API routers in the application.
     """
-    pass
+    app.include_router(health_check_router, tags=["Health Check"])
 
 
 def create_app() -> FastAPI:
