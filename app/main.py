@@ -8,11 +8,11 @@ from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 from sqlmodel import SQLModel
 
+from app.api.endpoints.v1.health_check import router as health_check_router
 from app.core._logging import logger
 from app.core.config import environment, settings
 from app.core.limiter import limiter
 from app.db.engine import engine
-from app.api.endpoints.v1.health_check import router as health_check_router
 
 
 @asynccontextmanager

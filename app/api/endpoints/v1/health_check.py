@@ -1,7 +1,8 @@
-from fastapi import APIRouter, status, Request, Response
+from fastapi import APIRouter, Request, Response, status
+
+from app.core._logging import logger
 from app.core.interface import BaseResponse
 from app.core.limiter import limiter
-from app.core._logging import logger
 
 router = APIRouter(prefix="/v1")
 
