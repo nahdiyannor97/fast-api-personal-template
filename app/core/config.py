@@ -23,12 +23,18 @@ class Settings(BaseSettings):
     api_v1: str
 
     # Documentation Toggle
-    use_static_document: bool = True
+    use_static_document: bool = False
 
     # Database settings
     use_mock_db: bool = True
+
+    # SQL Database settings
     database_url: str = "sqlite+aiosqlite://"
-    database_echo: bool = True
+    database_echo: bool = True if environment == Environment.DEVELOPMENT else False
+
+    # NoSQL Database settings
+    database_name: str = "app_db"
+    mongodb_url: str = "mongodb://"
 
     # Authentication settings
     secret_key: str = "super-secret-key-change-in-production"

@@ -8,11 +8,12 @@ from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 from sqlmodel import SQLModel
 
-from app.api.endpoints.v1.health_check import router as health_check_router
+from app.api.health_check import router as health_check_router
 from app.core._logging import logger
 from app.core.config import environment, settings
 from app.core.limiter import limiter
 from app.db.engine import engine
+from app.db.mongo import init_mongo
 
 
 @asynccontextmanager
@@ -21,11 +22,13 @@ async def lifespan(_: FastAPI):
     Handle the lifespan events of the FastAPI application.
     """
     if settings.use_mock_db:
+        logger.info("Using mock databases")
         async with engine.begin() as conn:
             await conn.run_sync(SQLModel.metadata.create_all)
-        logger.info("Using mock database")
+        await init_mongo()
     else:
-        logger.info("Using real database")
+        logger.info("Using real databases")
+        await init_mongo()
     yield
 
 
@@ -89,7 +92,7 @@ def configure_routers(app: FastAPI) -> None:
     """
     Include all API routers in the application.
     """
-    app.include_router(health_check_router, tags=["Health Check"])
+    app.include_router(router=health_check_router)
 
 
 def create_app() -> FastAPI:
