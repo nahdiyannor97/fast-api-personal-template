@@ -9,3 +9,8 @@ class BaseResponse(BaseModel, Generic[T]):
     message: str
     status_code: int
     data: Optional[T] = None
+
+
+class AuthResponse(BaseModel):
+    access_token: str
+    token_type: str

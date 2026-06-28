@@ -7,8 +7,8 @@ from app.core.limiter import limiter
 router = APIRouter(tags=["Health Check"])
 
 
-@router.get("/", response_model=BaseResponse[None], status_code=status.HTTP_200_OK)
-@limiter.limit("10/minute")
+@router.get(path="/", response_model=BaseResponse[None], status_code=status.HTTP_200_OK)
+@limiter.limit(limit_value="10/minute")
 async def health_check(request: Request, response: Response) -> BaseResponse[None]:
     logger.info("Health check endpoint hit")
 

@@ -158,3 +158,16 @@ cython_debug/
 # FastAPI / SQLAlchemy / Alembic
 alembic/versions/*.pyc
 *.sqlite3
+
+# Logging Files
+*.log
+
+# Ruff Cache
+.ruff_cache/
+
+# Agents
+.agents/
+agent.yaml
+CLAUDE.md
+GEMINI.md
+prompt.txt

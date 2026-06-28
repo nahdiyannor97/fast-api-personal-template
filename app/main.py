@@ -8,6 +8,7 @@ from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 from sqlmodel import SQLModel
 
+from app.api.auth import router as auth_router
 from app.api.health_check import router as health_check_router
 from app.core._logging import logger
 from app.core.config import environment, settings
@@ -93,6 +94,7 @@ def configure_routers(app: FastAPI) -> None:
     Include all API routers in the application.
     """
     app.include_router(router=health_check_router)
+    app.include_router(router=auth_router)
 
 
 def create_app() -> FastAPI:
